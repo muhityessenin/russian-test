@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, {useEffect} from "react"
 
 import { useState } from "react"
 import { Play, BookOpen, Languages, PenTool, CheckCircle, Star, Phone, Trophy, Award } from "lucide-react"
@@ -387,6 +387,9 @@ export default function RussianTest() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState("")
   const [selectedOption, setSelectedOption] = useState<number | null>(null)
+  useEffect(() => {
+    setSelectedOption(null)
+  }, [currentQuestion, currentSection])
 
   const allQuestions = testSections.flatMap((section) => section.questions)
   const totalQuestions = allQuestions.length
@@ -394,13 +397,19 @@ export default function RussianTest() {
       testSections.slice(0, currentSection).reduce((acc, section) => acc + section.questions.length, 0) + currentQuestion
 
   const handleAnswer = (answerIndex: number) => {
-    setSelectedOption(answerIndex)
     const questionId = allQuestions[currentQuestionIndex].id
-    setAnswers((prev) => ({ ...prev, [questionId]: answerIndex }))
 
-    // Автоматический переход к следующему вопросу
-    setTimeout(() => {
+    // Сохраняем ответ сразу
+    setAnswers((prev) => ({ ...prev, [questionId]: answerIndex }))
+    setSelectedOption(answerIndex)
+
+    // Сброс selectedOption ДО перерендера
+    requestAnimationFrame(() => {
       setSelectedOption(null)
+    })
+
+    // Переход к следующему вопросу
+    setTimeout(() => {
       if (currentQuestion < testSections[currentSection].questions.length - 1) {
         setCurrentQuestion((prev) => prev + 1)
       } else if (currentSection < testSections.length - 1) {
@@ -410,8 +419,9 @@ export default function RussianTest() {
         setIsCompleted(true)
         setTimeout(() => setShowPhoneRequest(true), 500)
       }
-    }, 500)
+    }, 300)
   }
+
 
   const calculateResults = () => {
     const sectionResults = testSections.map((section) => {
@@ -748,7 +758,7 @@ export default function RussianTest() {
             <div className="grid gap-4 md:grid-cols-2 max-w-3xl mx-auto">
               {currentQuestionData.options.map((option, index) => (
                   <Card
-                      key={index}
+                      key={`${currentQuestionData.id}-${index}`}
                       className={`option-card cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105 border-2 hover:border-blue-300 ${
                           selectedOption === index ? "bg-blue-600 text-white transform scale-98" : ""
                       }`}
