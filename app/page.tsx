@@ -390,6 +390,24 @@ export default function RussianTest() {
   useEffect(() => {
     setSelectedOption(null)
   }, [currentQuestion, currentSection])
+  useEffect(() => {
+    const savedProgress = localStorage.getItem("russianTestProgress")
+    if (savedProgress) {
+      const parsed = JSON.parse(savedProgress)
+      setCurrentSection(parsed.currentSection || 0)
+      setCurrentQuestion(parsed.currentQuestion || 0)
+      setAnswers(parsed.answers || {})
+    }
+  }, [])
+
+  useEffect(() => {
+    const progress = {
+      currentSection,
+      currentQuestion,
+      answers,
+    }
+    localStorage.setItem("russianTestProgress", JSON.stringify(progress))
+  }, [currentSection, currentQuestion, answers])
 
   const allQuestions = testSections.flatMap((section) => section.questions)
   const totalQuestions = allQuestions.length
