@@ -12,7 +12,7 @@ import CustomVideoPlayer from "@/components/CustomVideoPlayer"
 // Типы данных
 interface Question {
   id: number
-  type: "video" | "grammar" | "translation" | "writing"
+  type: "video" | "grammar" | "translation" | "writing" | "image"
   question: string
   media?: {
     type: "video" | "audio" | "image"
@@ -266,44 +266,93 @@ const testSections: TestSection[] = [
 
   {
     id: "translation",
-    title: "Аударма",
+    title: "Фото",
     icon: Languages,
     questions: [
       {
         id: 11,
-        type: "translation",
-        question: 'Как будет по-русски "Hello"?',
-        options: ["Привет", "Пока", "Спасибо", "Пожалуйста"],
-        correctAnswer: 0,
+        type: "image",
+        question: "Суретте не бейнеленген?",
+        media: {
+          type: "image",
+          url: "/IMG_8787.JPG",
+        },
+        options: [
+          "Хлеб",
+          "Молоко",
+          "Сыр",
+          "Список"
+        ],
+        correctAnswer: 3
       },
       {
         id: 12,
-        type: "translation",
-        question: 'Переведите "Thank you"',
-        options: ["Извините", "Спасибо", "Пожалуйста", "До свидания"],
-        correctAnswer: 1,
-      },
+        type: "image",
+        question: "Бұл адамға не қажет?",
+        media: {
+          type: "image",
+          url: "/IMG_8788.JPG",
+        },
+        options: [
+          "Косметика",
+          "Одежда",
+          "Бассейн",
+          "Демалу" // ✅ правильный вариант — «Отдых» по-казахски
+        ],
+        correctAnswer: 3
+      }
+      ,
       {
         id: 13,
-        type: "translation",
-        question: 'Как будет по-русски "Goodbye"?',
-        options: ["Привет", "До свидания", "Спасибо", "Пожалуйста"],
-        correctAnswer: 1,
-      },
+        type: "image",
+        question: "Бұл адамға не қажет?",
+        media: {
+          type: "image",
+          url: "/IMG_8789.JPG",
+        },
+        options: [
+          "Злость",
+          "Боль",
+          "Надежда",
+          "Страх"// ✅ правильный ответ — ведь он держит свет среди негатива
+        ],
+        correctAnswer: 2
+      }
+      ,
       {
         id: 14,
-        type: "translation",
-        question: 'Переведите "Please"',
-        options: ["Пожалуйста", "Спасибо", "Простите", "Доброе утро"],
-        correctAnswer: 0,
-      },
+        type: "image",
+        question: "Суретте не бейнеленген?",
+        media: {
+          type: "image",
+          url: "/IMG_2127.JPG",
+        },
+        options: [
+          "Новый жыл",
+          "Жаңа жылдық тост", // ✅ правильный ответ
+          "Жасыл бокал",
+          "Аяз Ата"
+        ],
+        correctAnswer: 1
+      }
+      ,
       {
         id: 15,
-        type: "translation",
-        question: 'Как будет по-русски "How are you?"',
-        options: ["Что ты?", "Как ты?", "Куда ты?", "Где ты?"],
-        correctAnswer: 1,
-      },
+        type: "image",
+        question: "Суретте қандай сөз жетіспейді?",
+        media: {
+          type: "image",
+          url: "/IMG_8790.JPG",
+        },
+        options: [
+          "толы",
+          "бос",        // ✅ правильный ответ
+          "әдемі",
+          "ұзын"
+        ],
+        correctAnswer: 1
+      }
+      ,
     ],
   },
   {
@@ -751,8 +800,10 @@ export default function RussianTest() {
                         <img
                             src={currentQuestionData.media.url || "/placeholder.svg"}
                             alt="Вопрос"
-                            className="max-w-lg rounded-lg shadow-lg"
+                            className="w-full max-w-[600px] max-h-[70vh] h-auto object-contain rounded-md shadow mx-auto"
                         />
+
+
                     )}
                     {currentQuestionData.media.type === "audio" && (
                         <div className="w-full max-w-lg p-8 bg-gray-100 rounded-lg flex items-center justify-center">
