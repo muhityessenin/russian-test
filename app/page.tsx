@@ -135,7 +135,7 @@ const validatePhoneNumber = (phone: string): boolean => {
 const testSections: TestSection[] = [
   {
     id: "video_motivation",
-    title: "Эмоциялық бейне",
+    title: "Видео сұрақтар",
     icon: Play,
     questions: [
       {
@@ -314,64 +314,64 @@ const testSections: TestSection[] = [
       {
         id: 16,
         type: "writing",
-        question: "Найдите ошибку в предложении:",
+        question: "Сөйлемнен қатені табыңыз:",
         options: [
           "Я покупаю хлеб в магазине",
           "Мы идём в театр сегодня",
           "Она читает интересную книгу",
-          "Они играют в футбол во дворе",
+          "Они играют в футбол во дворе"
         ],
-        correctAnswer: 1,
+        correctAnswer: 1
       },
       {
         id: 17,
         type: "writing",
-        question: 'Расставьте слова в правильном порядке: "читает / книгу / мама / интересную"',
+        question: "Сөздерді дұрыс ретпен қойыңыз: \"читает / книгу / мама / интересную\"",
         options: [
           "Мама читает интересную книгу",
           "Книгу читает мама интересную",
           "Интересную мама читает книгу",
-          "Читает мама книгу интересную",
+          "Читает мама книгу интересную"
         ],
-        correctAnswer: 0,
+        correctAnswer: 0
       },
       {
         id: 18,
         type: "writing",
-        question: "Какое из предложений составлено неправильно?",
+        question: "Қай сөйлем дұрыс құрылмаған?",
         options: [
           "Папа готовит ужин на кухне",
           "Мы читаем книгу интересную",
           "Сестра рисует на бумаге",
-          "Дети бегают по улице",
+          "Дети бегают по улице"
         ],
-        correctAnswer: 1,
+        correctAnswer: 1
       },
       {
         id: 19,
         type: "writing",
-        question: 'Расставьте слова в правильном порядке: "собака / играет / мальчик / с"',
+        question: "Сөздерді дұрыс ретпен қойыңыз: \"собака / играет / мальчик / с\"",
         options: [
           "Мальчик играет с собакой",
           "Собака играет с мальчиком",
           "Играет мальчик с собакой",
-          "С мальчиком играет собака",
+          "С мальчиком играет собака"
         ],
-        correctAnswer: 0,
+        correctAnswer: 0
       },
       {
         id: 20,
         type: "writing",
-        question: "Найдите предложение с грамматической ошибкой",
+        question: "Грамматикалық қатесі бар сөйлемді табыңыз:",
         options: [
           "Мама купила яблоки и бананы",
           "Они гулял в парке вечером",
           "Учитель объяснил тему хорошо",
-          "Брат любит играть в футбол",
+          "Брат любит играть в футбол"
         ],
-        correctAnswer: 1,
-      },
-    ],
+        correctAnswer: 1
+      }
+    ]
   },
 ]
 
@@ -386,9 +386,7 @@ export default function RussianTest() {
   const [showPhoneRequest, setShowPhoneRequest] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState("")
-  const [selectedOption, setSelectedOption] = useState<number | null>(null)
   useEffect(() => {
-    setSelectedOption(null)
   }, [currentQuestion, currentSection])
   useEffect(() => {
     const savedProgress = localStorage.getItem("russianTestProgress")
@@ -419,11 +417,9 @@ export default function RussianTest() {
 
     // Сохраняем ответ сразу
     setAnswers((prev) => ({ ...prev, [questionId]: answerIndex }))
-    setSelectedOption(answerIndex)
 
     // Сброс selectedOption ДО перерендера
     requestAnimationFrame(() => {
-      setSelectedOption(null)
     })
 
     // Переход к следующему вопросу
@@ -778,15 +774,16 @@ export default function RussianTest() {
                   <Card
                       key={`${currentQuestionData.id}-${index}`}
                       className={`option-card cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105 border-2 hover:border-blue-300 ${
-                          selectedOption === index ? "bg-blue-600 text-white transform scale-98" : ""
+                          answers[currentQuestionData.id] === index ? "bg-blue-600 text-white transform scale-98" : ""
                       }`}
                       onClick={() => handleAnswer(index)}
                   >
-                    <CardContent className="p-6 lg:p-8">
+
+                  <CardContent className="p-6 lg:p-8">
                       <div className="flex items-center gap-4">
                         <div
                             className={`option-letter w-8 h-8 rounded-full flex items-center justify-center text-blue-600 font-semibold ${
-                                selectedOption === index ? "bg-white text-blue-600" : "bg-blue-100"
+                                answers[currentQuestionData.id] === index ? "bg-white text-blue-600" : "bg-blue-100"
                             }`}
                         >
                           {String.fromCharCode(65 + index)}
