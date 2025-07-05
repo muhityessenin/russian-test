@@ -346,13 +346,12 @@ const testSections: TestSection[] = [
         },
         options: [
           "полными",
-          "пустыми",        // ✅ правильный ответ
+          "пустыми",
           "красивыми",
           "длинными"
         ],
         correctAnswer: 1
-      }
-      ,
+      },
     ],
   },
   {
@@ -435,6 +434,8 @@ export default function RussianTest() {
   const [showPhoneRequest, setShowPhoneRequest] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState("")
+  const [selectedOption, setSelectedOption] = useState<number | null>(null)
+
   useEffect(() => {
   }, [currentQuestion, currentSection])
   useEffect(() => {
@@ -462,16 +463,11 @@ export default function RussianTest() {
       testSections.slice(0, currentSection).reduce((acc, section) => acc + section.questions.length, 0) + currentQuestion
 
   const handleAnswer = (answerIndex: number) => {
+    setSelectedOption(answerIndex)
     const questionId = allQuestions[currentQuestionIndex].id
-
-    // Сохраняем ответ сразу
     setAnswers((prev) => ({ ...prev, [questionId]: answerIndex }))
 
-    // Сброс selectedOption ДО перерендера
-    requestAnimationFrame(() => {
-    })
-
-    // Переход к следующему вопросу
+    // Автоматический переход к следующему вопросу
     setTimeout(() => {
       if (currentQuestion < testSections[currentSection].questions.length - 1) {
         setCurrentQuestion((prev) => prev + 1)
@@ -481,8 +477,11 @@ export default function RussianTest() {
       } else {
         setIsCompleted(true)
         setTimeout(() => setShowPhoneRequest(true), 500)
+        return
       }
-    }, 300)
+      // Сбрасываем выделение после перехода
+      setSelectedOption(null)
+    }, 500)
   }
 
 
@@ -709,9 +708,17 @@ export default function RussianTest() {
                   <p className="text-gray-600">
                     Нәтижелер сақталды. Біздің маман жеке ұсыныстар беру үшін сізбен жақын арада байланысады.
                   </p>
-                  <Button onClick={() => window.location.reload()} variant="outline" className="mx-auto">
-                    Тестті қайта өту
-                  </Button>
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <Button
+                        onClick={() => window.open("https://t.me/akcentakademy", "_blank")}
+                        className="bg-green-600 hover:bg-green-700 text-white"
+                    >
+                      Бонусымды аламын
+                    </Button>
+                    <Button onClick={() => window.location.reload()} variant="outline">
+                      Тестті қайта өту
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -823,18 +830,17 @@ export default function RussianTest() {
             <div className="grid gap-4 md:grid-cols-2 max-w-3xl mx-auto">
               {currentQuestionData.options.map((option, index) => (
                   <Card
-                      key={`${currentQuestionData.id}-${index}`}
+                      key={index}
                       className={`option-card cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105 border-2 hover:border-blue-300 ${
-                          answers[currentQuestionData.id] === index ? "bg-blue-600 text-white transform scale-98" : ""
+                          selectedOption === index ? "bg-blue-600 text-white transform scale-98" : ""
                       }`}
                       onClick={() => handleAnswer(index)}
                   >
-
-                  <CardContent className="p-6 lg:p-8">
+                    <CardContent className="p-6 lg:p-8">
                       <div className="flex items-center gap-4">
                         <div
                             className={`option-letter w-8 h-8 rounded-full flex items-center justify-center text-blue-600 font-semibold ${
-                                answers[currentQuestionData.id] === index ? "bg-white text-blue-600" : "bg-blue-100"
+                                selectedOption === index ? "bg-white text-blue-600" : "bg-blue-100"
                             }`}
                         >
                           {String.fromCharCode(65 + index)}
