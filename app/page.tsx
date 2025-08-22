@@ -30,7 +30,7 @@ interface TestSection {
 }
 
 // Функция для форматирования номера телефона
-const formatPhoneNumber = (value: string): string => {
+/*const formatPhoneNumber = (value: string): string => {
   // Удаляем все символы кроме цифр
   const numbers = value.replace(/\D/g, "")
 
@@ -67,10 +67,10 @@ const formatPhoneNumber = (value: string): string => {
   }
 
   return "+7 "
-}
+}*/
 
 // Функция для валидации казахстанского номера
-const validatePhoneNumber = (phone: string): boolean => {
+/*const validatePhoneNumber = (phone: string): boolean => {
   // Удаляем все символы кроме цифр
   const numbers = phone.replace(/\D/g, "")
 
@@ -130,7 +130,7 @@ const validatePhoneNumber = (phone: string): boolean => {
   ]
 
   return validCodes.includes(operatorCode)
-}
+}*/
 
 const testSections: TestSection[] = [
   {
@@ -223,43 +223,43 @@ const testSections: TestSection[] = [
   },
   {
     id: "grammar",
-    title: "Аудару",
+    title: "Грамматика",
     icon: BookOpen,
     questions: [
       {
         id: 6,
-        type: "translation_construct",
-        question: "Кеше мен достарыммен киноға бардым.",
-        options: ["Вчера", "я", "ходил", "в", "кино", "с", "друзьями", "завтра", "пошёл", "школу", "смотрел"],
-        correctAnswer: "Вчера я ходил в кино с друзьями",
+        type: "grammar",
+        question: "Выберите правильную форму глагола: Я _____ в магазин.",
+        options: ["иду", "идёт", "идём", "идут"],
+        correctAnswer: 0,
       },
       {
         id: 7,
-        type: "translation_construct",
-        question: "Мен жазда ауылға ата-анамның үйіне барамын.",
-        options: ["Летом", "я", "поеду", "в", "деревню", "к", "родителям", "зимой", "приеду", "квартиру"],
-        correctAnswer: "Летом я поеду в деревню к родителям",
+        type: "grammar",
+        question: 'Какой падеж у слова "книгу" в предложении "Я читаю книгу"?',
+        options: ["Именительный", "Родительный", "Винительный", "Дательный"],
+        correctAnswer: 2,
       },
       {
         id: 8,
-        type: "translation_construct",
-        question: "Егер уақытым болса, мен кітап оқимын.",
-        options: ["Если", "у", "меня", "будет", "время", "я", "прочитаю", "книгу", "когда", "читаю", "журнал"],
-        correctAnswer: "Если у меня будет время я прочитаю книгу",
+        type: "grammar",
+        question: "Укажите правильное местоимение: _____ идёт в школу.",
+        options: ["Я", "Ты", "Он", "Мы"],
+        correctAnswer: 2, // Он идёт
       },
       {
         id: 9,
-        type: "translation_construct",
-        question: "Бұл қала Алматыдан үлкенірек.",
-        options: ["Этот", "город", "больше", "чем", "Алматы", "такой", "же", "маленький", "красивее"],
-        correctAnswer: "Этот город больше чем Алматы",
+        type: "grammar",
+        question: "Как правильно: У меня _____ книга.",
+        options: ["есть", "есть ли", "был", "будет"],
+        correctAnswer: 0, // есть
       },
       {
         id: 10,
-        type: "translation_construct",
-        question: "Біз достармен көбінесе кафеде кездесеміз.",
-        options: ["Мы", "с", "друзьями", "часто", "встречаемся", "в", "кафе", "обычно", "сидим", "ресторане"],
-        correctAnswer: "Мы с друзьями часто встречаемся в кафе",
+        type: "grammar",
+        question: "Какой предлог нужен: Я говорю _____ друге.",
+        options: ["о", "в", "на", "с"],
+        correctAnswer: 0, // о
       },
     ],
   },
@@ -360,78 +360,70 @@ const testSections: TestSection[] = [
     title: "Тыңдалым", // Аудирование
     icon: Volume2,
     questions: [
-      // Этот вопрос вы просили оставить
       {
         id: 16,
         type: "listening",
-        question: "Что вы услышали?",
+        question: "Что было сказано?",
         media: {
           type: "audio",
           url: "/L1.m4a",
         },
         options: [
-          "Могу", "я", "арендовать", "красную", "машину", "на", "неделю",
-          "синюю", "купить", "месяц"
+          "Расписание", "работы", "скоро", "изменится", "уже", "библиотеки"
         ],
-        correctAnswer: "Могу я арендовать красную машину на неделю",
+        correctAnswer: "Расписание работы скоро изменится",
       },
-
-      // Новые интересные вопросы
       {
         id: 17,
         type: "listening",
-        question: "Что вы услышали?",
+        question: "Что было предложено?",
         media: {
           type: "audio",
-          url: "/L2.m4a", // Не забудьте добавить аудиофайл
+          url: "/L2.m4a",
         },
         options: [
-          "После", "долгого", "дня", "я", "люблю", "принять", "горячую", "ванну",
-          "работы", "холодный", "душ"
+          "Проект", "должен", "быть", "завершён", "немедленно", "отменён"
         ],
-        correctAnswer: "После долгого дня я люблю принять горячую ванну",
+        correctAnswer: "Проект должен быть завершён",
       },
       {
         id: 18,
         type: "listening",
-        question: "Что вы услышали?",
+        question: "Что было сказано?",
         media: {
           type: "audio",
-          url: "/L3.m4a", // Не забудьте добавить аудиофайл
+          url: "/L3.m4a",
         },
         options: [
-          "Давай", "встретимся", "завтра", "на", "кофе", "и", "обсудим", "все", "новости",
-          "сегодня", "чай", "фильм"
+          "Эту", "проблему", "нужно", "изучить", "позже", "быстро"
         ],
-        correctAnswer: "Давай встретимся завтра на кофе и обсудим все новости",
+        correctAnswer: "Эту проблему нужно изучить",
       },
       {
         id: 19,
         type: "listening",
-        question: "Что вы услышали?",
+        question: "Что сказал клиент?",
         media: {
           type: "audio",
-          url: "/L4.m4a", // Не забудьте добавить аудиофайл
+          url: "/L4.m4a",
         },
         options: [
-          "Это", "платье", "идеально", "подходит", "к", "твоим", "новым", "туфлям",
-          "юбка", "старым", "сумке"
+          "Заказ", "был", "оформлен", "неверно", "правильно", "вчера"
         ],
-        correctAnswer: "Это платье идеально подходит к твоим новым туфлям",
+        correctAnswer: "Заказ был оформлен неверно",
       },
       {
         id: 20,
         type: "listening",
-        question: "Что вы услышали?",
+        question: "О чём шла речь?",
         media: {
           type: "audio",
-          url: "/L5.m4a", // Не забудьте добавить аудиофайл
+          url: "/L5.m4a",
         },
         options: [
-          "Я", "уверена", "что", "у", "тебя", "всё", "получится",
-          "сомневаюсь", "него", "ничего"
+          "Изменения", "в", "контракте", "одобрены", "отменены", "заменены"
         ],
-        correctAnswer: "Я уверена что у тебя всё получится",
+        correctAnswer: "Изменения в контракте одобрены",
       },
     ],
   },
@@ -443,11 +435,14 @@ export default function RussianTest() {
   const [answers, setAnswers] = useState<Record<number, number>>({})
   const [isCompleted, setIsCompleted] = useState(false)
   const [showResults, setShowResults] = useState(false)
-  const [phoneNumber, setPhoneNumber] = useState("+7 ")
-  const [isPhoneValid, setIsPhoneValid] = useState(false)
-  const [showPhoneRequest, setShowPhoneRequest] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitError, setSubmitError] = useState("")
+//  const [phoneNumber, setPhoneNumber] = useState("+7 ")
+//  const [isPhoneValid, setIsPhoneValid] = useState(false)
+//  const [showPhoneRequest, setShowPhoneRequest] = useState(false)
+//  const [isSubmitting, setIsSubmitting] = useState(false)
+//  const [submitError, setSubmitError] = useState("")
+  const [showBonusModal, setShowBonusModal] = useState(false);
+  const [bonusModalClosedCount, setBonusModalClosedCount] = useState(0);
+
   const [selectedOption, setSelectedOption] = useState<number | null>(null)
   const [selectedWords, setSelectedWords] = useState<string[]>([])
   const [wordBank, setWordBank] = useState<string[]>([])
@@ -455,8 +450,19 @@ export default function RussianTest() {
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false)
   const audioRef = React.useRef<HTMLAudioElement>(null)
   const [isProgressBarVisible, setIsProgressBarVisible] = useState(true);
+  const [initialWordBankOrder, setInitialWordBankOrder] = useState<string[]>([])
 
-
+  useEffect(() => {
+    const currentQ = testSections[currentSection]?.questions[currentQuestion]
+    if (currentQ?.type === "listening") {
+      setSelectedWords([])
+      const shuffledOptions = currentQ.options.sort(() => Math.random() - 0.5);
+      setInitialWordBankOrder(shuffledOptions);
+      setWordBank(shuffledOptions);
+      setIsAnswerChecked(false);
+      playAudio();
+    }
+  }, [currentQuestion, currentSection, testSections])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -498,9 +504,7 @@ export default function RussianTest() {
   }, [currentSection, currentQuestion, answers])
   useEffect(() => {
     const currentQ = testSections[currentSection]?.questions[currentQuestion]
-
-    // ИСПРАВЛЕННАЯ СТРОКА: проверяем оба типа
-    if (currentQ?.type === "listening" || currentQ?.type === "translation_construct") {
+    if (currentQ?.type === "listening") {
       setSelectedWords([])
       setWordBank(currentQ.options.sort(() => Math.random() - 0.5))
       setIsAnswerChecked(false)
@@ -523,6 +527,7 @@ export default function RussianTest() {
     }
 
     // Автоматический переход к следующему вопросу
+    // Автоматический переход к следующему вопросу
     setTimeout(() => {
       if (currentQuestion < testSections[currentSection].questions.length - 1) {
         setCurrentQuestion((prev) => prev + 1)
@@ -531,7 +536,7 @@ export default function RussianTest() {
         setCurrentQuestion(0)
       } else {
         setIsCompleted(true)
-        setTimeout(() => setShowPhoneRequest(true), 500)
+        setTimeout(() => setShowResults(true), 500); // <-- НОВАЯ СТРОКА
         return
       }
       // Сбрасываем выделение после перехода
@@ -578,17 +583,41 @@ export default function RussianTest() {
         setCurrentQuestion(0)
       } else {
         setIsCompleted(true)
-        setTimeout(() => setShowPhoneRequest(true), 500)
+        setTimeout(() => setShowResults(true), 500)
       }
-    }, 1500) // Увеличим задержку, чтобы пользователь увидел результат
+    }, 1500)
   }
+  useEffect(() => {
+    if (showResults) {
+      const showModal = () => {
+        setTimeout(() => {
+          setShowBonusModal(true);
+        }, 5000);
+      };
+
+      showModal(); // Первый показ
+    }
+  }, [showResults]);
+  const closeBonusModal = () => {
+    setShowBonusModal(false);
+    setBonusModalClosedCount(prev => prev + 1);
+  };
+  useEffect(() => {
+    if (bonusModalClosedCount > 0 && showResults) {
+      const timer = setTimeout(() => {
+        setShowBonusModal(true);
+      }, 5000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [bonusModalClosedCount, showResults]);
 
   const calculateResults = () => {
     const sectionResults = testSections.map((section) => {
       const sectionQuestions = section.questions
       const correctAnswers = sectionQuestions.filter((q) => {
         if (q.type === 'listening') {
-          return answers[q.id] === 1; // 1 означает правильный ответ
+          return answers[q.id] === 1;
         }
         return answers[q.id] === q.correctAnswer
       }).length
@@ -635,7 +664,7 @@ export default function RussianTest() {
     }
   }
 
-  const submitToGoogleSheets = async (phone: string) => {
+/*  const submitToGoogleSheets = async (phone: string) => {
     setIsSubmitting(true)
     setSubmitError("")
 
@@ -674,15 +703,15 @@ export default function RussianTest() {
     } finally {
       setIsSubmitting(false)
     }
-  }
+  }*/
 
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+/*  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     const formatted = formatPhoneNumber(value)
     setPhoneNumber(formatted)
     setIsPhoneValid(validatePhoneNumber(formatted))
-  }
-
+  }*/
+/*
   if (showPhoneRequest) {
     return (
         <div className="min-h-screen bg-white flex items-center justify-center p-4">
@@ -753,7 +782,7 @@ export default function RussianTest() {
           </div>
         </div>
     )
-  }
+  }*/
 
   if (showResults) {
     const { sectionResults, totalCorrect, totalPercentage } = calculateResults()
@@ -813,7 +842,7 @@ export default function RussianTest() {
                   </p>
                   <div className="flex flex-col sm:flex-row gap-3 justify-center">
                     <Button
-                        onClick={() => window.open("https://t.me/akcentakademy", "_blank")}
+                        onClick={() => window.open("https://akcentacademy.kz/prob-platform", "_blank")}
                         className="bg-green-600 hover:bg-green-700 text-white"
                     >
                       Бонусымды аламын
@@ -825,7 +854,39 @@ export default function RussianTest() {
                 </div>
               </CardContent>
             </Card>
+
+
           </div>
+          {showBonusModal && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <Card className="max-w-md w-full p-6 text-center shadow-2xl animate-fade-in-up">
+                  <CardContent className="space-y-6">
+                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+                      <Trophy className="w-8 h-8 text-green-600" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900">Құттықтаймыз!</h3>
+                    <p className="text-md text-gray-600">
+                      Сіздің нәтижелеріңіз өңделді. Бонусты алу үшін төмендегі батырманы басыңыз.
+                    </p>
+                    <Button
+                        onClick={() => window.open("https://t.me/akcentakademy", "_blank")}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-lg py-3"
+                    >
+                      <Star className="w-5 h-5 mr-2" />
+                      Бонусымды аламын
+                    </Button>
+                    <Button
+                        onClick={closeBonusModal}
+                        variant="outline"
+                        className="w-full"
+                    >
+                      Жабу
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+          )}
+
         </div>
     )
   }
@@ -903,7 +964,7 @@ export default function RussianTest() {
                                 size="lg"
                                 className="p-4 h-20 w-20 rounded-2xl bg-blue-600 hover:bg-blue-700"
                             >
-                              <PlayCircle className="h-12 w-12 text-white"/>
+                              <img src="/play.png" alt="Play" className="h-12 w-12" />
                             </Button>
                             <p className="text-sm text-gray-600">Тыңдау үшін басыңыз</p>
                             <audio ref={audioRef} src={currentQuestionData.media.url} preload="auto"/>
@@ -916,32 +977,27 @@ export default function RussianTest() {
             {/* ... ваш код до вариантов ответов */}
 
             {/* Варианты ответов */}
-            {/* Варианты ответов */}
             <div className="max-w-3xl mx-auto">
-              {currentQuestionData.type === "listening" || currentQuestionData.type === "translation_construct" ? (
-                  // >>>>> ОБЩИЙ БЛОК ДЛЯ СБОРКИ ПРЕДЛОЖЕНИЙ <<<<<
+              {currentQuestionData.type === "listening" ? (
+                  // >>>>> НАЧАЛО НОВОГО БЛОКА ДЛЯ АУДИРОВАНИЯ <<<<<
                   <div className="space-y-6">
+                    <div className="flex justify-center items-center gap-6">
+                      <button
+                          onClick={() => playAudio(1.0)}
+                          className="cursor-pointer transition-transform hover:scale-110 active:scale-95 p-2"
+                      >
+                        <img src="/play2.png" alt="Play" className="h-16 w-16"/>
+                      </button>
 
-                    {/* Отображаем кнопки аудио ТОЛЬКО для типа "listening" */}
-                    {currentQuestionData.type === "listening" && (
-                        <div className="flex justify-center items-center gap-4">
-                          <Button
-                              onClick={() => playAudio(1.0)}
-                              size="lg"
-                              className="p-4 h-20 w-20 rounded-2xl bg-sky-500 hover:bg-sky-600 shadow-lg transition-transform hover:scale-105 active:scale-95"
-                          >
-                            <Volume2 className="h-10 w-10 text-white" strokeWidth={2.5}/>
-                          </Button>
-                          <Button
-                              onClick={() => playAudio(0.7)}
-                              size="lg"
-                              className="p-4 h-16 w-16 rounded-2xl bg-sky-400 hover:bg-sky-500 shadow-md transition-transform hover:scale-105 active:scale-95"
-                          >
-                            <img src="https://em-content.zobj.net/source/apple/354/turtle_1f422.png" alt="slow" className="h-8 w-8"/>
-                          </Button>
-                          <audio ref={audioRef} src={currentQuestionData.media?.url} preload="auto" />
-                        </div>
-                    )}
+                      <button
+                          onClick={() => playAudio(0.7)}
+                          className="cursor-pointer transition-transform hover:scale-110 active:scale-95 p-2"
+                      >
+                        <img src="/snail.png" alt="slow" className="h-14 w-14"/>
+                      </button>
+
+                      <audio ref={audioRef} src={currentQuestionData.media?.url} preload="auto"/>
+                    </div>
 
                     <Card className="min-h-[80px] border-2 border-dashed">
                       <CardContent className="p-4 flex flex-wrap gap-2 items-center">
@@ -958,79 +1014,83 @@ export default function RussianTest() {
                       </CardContent>
                     </Card>
 
+                    {/* Здесь начинается измененный блок для отображения слотов */}
                     <div className="flex flex-wrap gap-2 justify-center">
-                      {wordBank.map((word, index) => (
-                          <Button
-                              key={`${word}-${index}`}
-                              variant="outline"
-                              className="text-lg px-4 py-2"
-                              onClick={() => handleSelectWord(word)}
-                          >
-                            {word}
-                          </Button>
-                      ))}
+                      {initialWordBankOrder.map((word: string, index: number) => {
+                        const isSelected = !wordBank.includes(word);
+                        return (
+                            <div
+                                key={index}
+                                className={`border-2 border-dashed border-gray-300 rounded-md min-w-[80px] min-h-[44px] flex items-center justify-center transition-all duration-300`}
+                            >
+                              {!isSelected ? (
+                                  <Button
+                                      variant="outline"
+                                      className="p-2 text-lg cursor-pointer transition-transform duration-100 ease-in-out hover:scale-105"
+                                      onClick={() => handleSelectWord(word)}
+                                  >
+                                    {word}
+                                  </Button>
+                              ) : (
+                                  // Показываем пустой слот с сохранением размера
+                                  <div
+                                      className="p-2 text-lg text-transparent select-none min-w-[64px] min-h-[36px] flex items-center justify-center">
+                                    {word}
+                                  </div>
+                              )}
+                            </div>
+                        );
+                      })}
                     </div>
 
-                    <div className="pt-4">
+                    {/* Кнопка проверки ответа */}
+                    <div className="flex justify-center mt-6">
                       <Button
                           onClick={handleCheckListeningAnswer}
                           disabled={selectedWords.length === 0 || isAnswerChecked}
-                          className={`w-full text-lg py-3 transition-colors duration-300 ${
-                              isAnswerChecked
-                                  ? isAnswerCorrect
-                                      ? "bg-green-600 hover:bg-green-700"
-                                      : "bg-red-600 hover:bg-red-700"
-                                  : "bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
-                          }`}
+                          className="bg-blue-600 hover:bg-blue-700 text-lg py-3 px-8"
                       >
-                        {isAnswerChecked ? (
-                            isAnswerCorrect ? (
-                                <span className="flex items-center justify-center gap-2">
-                <Check className="h-5 w-5" />
-                Правильно!
-              </span>
-                            ) : (
-                                <span className="flex items-center justify-center gap-2">
-                <X className="h-5 w-5" />
-                Неверно!
-              </span>
-                            )
-                        ) : (
-                            "Проверить"
-                        )}
+                        Проверить
                       </Button>
                     </div>
+
+                    {isAnswerChecked && (
+                        <div className="flex items-center justify-center gap-2 mt-4 text-xl font-semibold">
+                          {isAnswerCorrect ? (
+                              <>
+                                <Check className="h-6 w-6 text-green-500"/>
+                                <span className="text-green-600">Верно!</span>
+                              </>
+                          ) : (
+                              <>
+                                <X className="h-6 w-6 text-red-500"/>
+                                <span className="text-red-600">Неверно!</span>
+                              </>
+                          )}
+                        </div>
+                    )}
                   </div>
               ) : (
-                  // СТАРЫЙ БЛОК ДЛЯ ОБЫЧНЫХ ВОПРОСОВ (с выбором вариантов)
-                  <div className="grid gap-4 md:grid-cols-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 max-w-2xl mx-auto">
                     {currentQuestionData.options.map((option, index) => (
-                        <Card
+                        <Button
                             key={index}
-                            className={`option-card cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105 border-2 hover:border-blue-300 ${
-                                selectedOption === index ? "bg-blue-600 text-white transform scale-98" : ""
-                            }`}
                             onClick={() => handleAnswer(index)}
+                            className={`w-full text-lg py-6 h-auto transition-all duration-200 ease-in-out ${selectedOption === index
+                                ? "bg-blue-600 text-white shadow-lg scale-105"
+                                : "bg-gray-100 hover:bg-gray-200 text-gray-800"
+                            }`}
                         >
-                          <CardContent className="p-6 lg:p-8">
-                            <div className="flex items-center gap-4">
-                              <div
-                                  className={`option-letter w-8 h-8 rounded-full flex items-center justify-center text-blue-600 font-semibold ${
-                                      selectedOption === index ? "bg-white text-blue-600" : "bg-blue-100"
-                                  }`}
-                              >
-                                {String.fromCharCode(65 + index)}
-                              </div>
-                              <p className="text-lg lg:text-xl flex-1">{option}</p>
-                            </div>
-                          </CardContent>
-                        </Card>
+                          {option}
+                        </Button>
                     ))}
                   </div>
               )}
             </div>
           </div>
         </div>
+
       </div>
+
   )
 }
