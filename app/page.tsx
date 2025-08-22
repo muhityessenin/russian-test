@@ -3,7 +3,7 @@
 import React, {useEffect} from "react"
 
 import { useState } from "react"
-import { Play, BookOpen, Languages, PenTool, CheckCircle, Star, Phone, Trophy, Award } from "lucide-react"
+import { Play, BookOpen, Languages, PenTool, CheckCircle, Star, Phone, Trophy, Award, Volume2, Repeat, MoveLeft, PlayCircle, Check, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -12,14 +12,14 @@ import CustomVideoPlayer from "@/components/CustomVideoPlayer"
 // Типы данных
 interface Question {
   id: number
-  type: "video" | "grammar" | "translation" | "writing" | "image"
+  type: "video" | "grammar" | "translation" | "listening" | "image" | "translation_construct" // ДОБАВЬТЕ ЭТОТ ТИП
   question: string
   media?: {
     type: "video" | "audio" | "image"
     url: string
   }
   options: string[]
-  correctAnswer: number
+  correctAnswer: number | string
 }
 
 interface TestSection {
@@ -141,39 +141,39 @@ const testSections: TestSection[] = [
       {
         id: 1,
         type: "video",
-        question: "Диктор не нәрсеге назар аударуға шақырып тұр?",
+        question: "Панда не айтқысы кеп тұр?",
         media: {
           type: "video",
-          url: "/IMG_1088.mp4", // сцена из Кунг-фу Панды
+          url: "/IMG_1088.mp4",
         },
         options: [
-          "Өткенді ұмытпауға",
-          "Өткенді жіберіп, қазіргі таңдауға",
-          "Өзін кінәлауға",
-          "Басқа адамға сенуге"
+          "Өткенді ұмытпауды",
+          "Өткенді жіберіп, қазіргі таңдауды",
+          "Өзін кінәлауді",
+          "Басқа адамға сенуді"
         ],
         correctAnswer: 1,
       },
       {
         id: 2,
         type: "video",
-        question: "Бұл видео қандай кеңес береді?",
+        question: "Аспаз не кеңес берді?",
         media: {
           type: "video",
           url: "/IMG_1089.mp4", // Рататуй
         },
         options: [
           "Қателік жасамауға",
-          "Үнемі ереже сақтауға",
+          "Үнемі ережені сақтауға",
           "Тәуекелге барып, тәжірибе жасауға",
-          "Өзгелерден рұқсат сұрауға"
+          "Өзгелерге тәуелді болуға"
         ],
         correctAnswer: 2,
       },
       {
         id: 3,
         type: "video",
-        question: "Бұл видеода кейіпкер қандай сезімді бастан кешіруде?",
+        question: "Кейіпкердің көңіл күйі?",
         media: {
           type: "video",
           url: "/IMG_1091.mp4", // Король Лев
@@ -189,15 +189,15 @@ const testSections: TestSection[] = [
       {
         id: 4,
         type: "video",
-        question: "Бұл диалог қай жерде болып жатыр?",
+        question: "Диалог қайда болып жатыр?",
         media: {
           type: "video",
           url: "/IMG_1092.mp4", // 1+1
         },
         options: [
           "Кинотеатрға кіреберіс",
-          "Кафе ішіндегі әңгіме",
-          "Қоғамдық ғимараттағы тексеру аймағы",
+          "Кафе ішіне кіреберіс",
+          "Қоғамдық ғимаратта",
           "Аурухана қабылдау бөлімі"
         ],
         correctAnswer: 2,
@@ -206,60 +206,60 @@ const testSections: TestSection[] = [
       {
         id: 5,
         type: "video",
-        question: "Бұл көріністе келесі сәтте не болуы мүмкін деп ойлайсыз?",
+        question: "Кейіпкер шынында не жасады?",
         media: {
           type: "video",
           url: "/IMG_1093.mp4", // Иллюзия обмана
         },
         options: [
-          "Қоштасу мен тарасу",
-          "Күтпеген тосынсый",
-          "Алаяқтық әрекет",
-          "Қайғылы жағдай"
+          "Мақтады",
+          "Рахмет айтты",
+          "Алдап кетті",
+          "Ұрлық жасады"
         ],
-        correctAnswer: 1,
+        correctAnswer: 2,
       },
     ],
   },
   {
     id: "grammar",
-    title: "Грамматика",
+    title: "Аудару",
     icon: BookOpen,
     questions: [
       {
         id: 6,
-        type: "grammar",
-        question: "Выберите правильную форму глагола: Я _____ в магазин.",
-        options: ["иду", "идёт", "идём", "идут"],
-        correctAnswer: 0,
+        type: "translation_construct",
+        question: "Кеше мен достарыммен киноға бардым.",
+        options: ["Вчера", "я", "ходил", "в", "кино", "с", "друзьями", "завтра", "пошёл", "школу", "смотрел"],
+        correctAnswer: "Вчера я ходил в кино с друзьями",
       },
       {
         id: 7,
-        type: "grammar",
-        question: 'Какой падеж у слова "книгу" в предложении "Я читаю книгу"?',
-        options: ["Именительный", "Родительный", "Винительный", "Дательный"],
-        correctAnswer: 2,
+        type: "translation_construct",
+        question: "Мен жазда ауылға ата-анамның үйіне барамын.",
+        options: ["Летом", "я", "поеду", "в", "деревню", "к", "родителям", "зимой", "приеду", "квартиру"],
+        correctAnswer: "Летом я поеду в деревню к родителям",
       },
       {
         id: 8,
-        type: "grammar",
-        question: "Укажите правильное местоимение: _____ идёт в школу.",
-        options: ["Я", "Ты", "Он", "Мы"],
-        correctAnswer: 2, // Он идёт
+        type: "translation_construct",
+        question: "Егер уақытым болса, мен кітап оқимын.",
+        options: ["Если", "у", "меня", "будет", "время", "я", "прочитаю", "книгу", "когда", "читаю", "журнал"],
+        correctAnswer: "Если у меня будет время я прочитаю книгу",
       },
       {
         id: 9,
-        type: "grammar",
-        question: "Как правильно: У меня _____ книга.",
-        options: ["есть", "есть ли", "был", "будет"],
-        correctAnswer: 0, // есть
+        type: "translation_construct",
+        question: "Бұл қала Алматыдан үлкенірек.",
+        options: ["Этот", "город", "больше", "чем", "Алматы", "такой", "же", "маленький", "красивее"],
+        correctAnswer: "Этот город больше чем Алматы",
       },
       {
         id: 10,
-        type: "grammar",
-        question: "Какой предлог нужен: Я говорю _____ друге.",
-        options: ["о", "в", "на", "с"],
-        correctAnswer: 0, // о
+        type: "translation_construct",
+        question: "Біз достармен көбінесе кафеде кездесеміз.",
+        options: ["Мы", "с", "друзьями", "часто", "встречаемся", "в", "кафе", "обычно", "сидим", "ресторане"],
+        correctAnswer: "Мы с друзьями часто встречаемся в кафе",
       },
     ],
   },
@@ -354,72 +354,86 @@ const testSections: TestSection[] = [
       },
     ],
   },
+// ЗАМЕНИТЕ СТАРУЮ СЕКЦИЮ "writing" НА ЭТУ:
   {
-    id: "writing",
-    title: "Жазу",
-    icon: PenTool,
+    id: "listening",
+    title: "Тыңдалым", // Аудирование
+    icon: Volume2,
     questions: [
+      // Этот вопрос вы просили оставить
       {
         id: 16,
-        type: "writing",
-        question: "Сөйлемнен қатені табыңыз:",
+        type: "listening",
+        question: "Что вы услышали?",
+        media: {
+          type: "audio",
+          url: "/L1.m4a",
+        },
         options: [
-          "Я покупаю хлеб в магазине",
-          "Мы идём в театр сегодня",
-          "Она читает интересную книгу",
-          "Они играют в футбол во дворе"
+          "Могу", "я", "арендовать", "красную", "машину", "на", "неделю",
+          "синюю", "купить", "месяц"
         ],
-        correctAnswer: 1
+        correctAnswer: "Могу я арендовать красную машину на неделю",
       },
+
+      // Новые интересные вопросы
       {
         id: 17,
-        type: "writing",
-        question: "Сөздерді дұрыс ретпен қойыңыз: \"читает / книгу / мама / интересную\"",
+        type: "listening",
+        question: "Что вы услышали?",
+        media: {
+          type: "audio",
+          url: "/L2.m4a", // Не забудьте добавить аудиофайл
+        },
         options: [
-          "Мама читает интересную книгу",
-          "Книгу читает мама интересную",
-          "Интересную мама читает книгу",
-          "Читает мама книгу интересную"
+          "После", "долгого", "дня", "я", "люблю", "принять", "горячую", "ванну",
+          "работы", "холодный", "душ"
         ],
-        correctAnswer: 0
+        correctAnswer: "После долгого дня я люблю принять горячую ванну",
       },
       {
         id: 18,
-        type: "writing",
-        question: "Қай сөйлем дұрыс құрылмаған?",
+        type: "listening",
+        question: "Что вы услышали?",
+        media: {
+          type: "audio",
+          url: "/L3.m4a", // Не забудьте добавить аудиофайл
+        },
         options: [
-          "Папа готовит ужин на кухне",
-          "Мы читаем книгу интересную",
-          "Сестра рисует на бумаге",
-          "Дети бегают по улице"
+          "Давай", "встретимся", "завтра", "на", "кофе", "и", "обсудим", "все", "новости",
+          "сегодня", "чай", "фильм"
         ],
-        correctAnswer: 1
+        correctAnswer: "Давай встретимся завтра на кофе и обсудим все новости",
       },
       {
         id: 19,
-        type: "writing",
-        question: "Сөздерді дұрыс ретпен қойыңыз: \"собака / играет / мальчик / с\"",
+        type: "listening",
+        question: "Что вы услышали?",
+        media: {
+          type: "audio",
+          url: "/L4.m4a", // Не забудьте добавить аудиофайл
+        },
         options: [
-          "Мальчик играет с собакой",
-          "Собака играет с мальчиком",
-          "Играет мальчик с собакой",
-          "С мальчиком играет собака"
+          "Это", "платье", "идеально", "подходит", "к", "твоим", "новым", "туфлям",
+          "юбка", "старым", "сумке"
         ],
-        correctAnswer: 0
+        correctAnswer: "Это платье идеально подходит к твоим новым туфлям",
       },
       {
         id: 20,
-        type: "writing",
-        question: "Грамматикалық қатесі бар сөйлемді табыңыз:",
+        type: "listening",
+        question: "Что вы услышали?",
+        media: {
+          type: "audio",
+          url: "/L5.m4a", // Не забудьте добавить аудиофайл
+        },
         options: [
-          "Мама купила яблоки и бананы",
-          "Они гулял в парке вечером",
-          "Учитель объяснил тему хорошо",
-          "Брат любит играть в футбол"
+          "Я", "уверена", "что", "у", "тебя", "всё", "получится",
+          "сомневаюсь", "него", "ничего"
         ],
-        correctAnswer: 1
-      }
-    ]
+        correctAnswer: "Я уверена что у тебя всё получится",
+      },
+    ],
   },
 ]
 
@@ -435,7 +449,33 @@ export default function RussianTest() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState("")
   const [selectedOption, setSelectedOption] = useState<number | null>(null)
+  const [selectedWords, setSelectedWords] = useState<string[]>([])
+  const [wordBank, setWordBank] = useState<string[]>([])
+  const [isAnswerChecked, setIsAnswerChecked] = useState(false)
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState(false)
+  const audioRef = React.useRef<HTMLAudioElement>(null)
+  const [isProgressBarVisible, setIsProgressBarVisible] = useState(true);
 
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Проверяем, находится ли пользователь в самом верху страницы
+      if (window.scrollY === 0) {
+        setIsProgressBarVisible(true);
+      } else {
+        setIsProgressBarVisible(false);
+      }
+    };
+
+    // Добавляем обработчик события скролла
+    window.addEventListener('scroll', handleScroll);
+
+    // Убираем обработчик при размонтировании компонента, чтобы избежать утечек памяти
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   useEffect(() => {
   }, [currentQuestion, currentSection])
   useEffect(() => {
@@ -456,6 +496,16 @@ export default function RussianTest() {
     }
     localStorage.setItem("russianTestProgress", JSON.stringify(progress))
   }, [currentSection, currentQuestion, answers])
+  useEffect(() => {
+    const currentQ = testSections[currentSection]?.questions[currentQuestion]
+
+    // ИСПРАВЛЕННАЯ СТРОКА: проверяем оба типа
+    if (currentQ?.type === "listening" || currentQ?.type === "translation_construct") {
+      setSelectedWords([])
+      setWordBank(currentQ.options.sort(() => Math.random() - 0.5))
+      setIsAnswerChecked(false)
+    }
+  }, [currentQuestion, currentSection])
 
   const allQuestions = testSections.flatMap((section) => section.questions)
   const totalQuestions = allQuestions.length
@@ -466,6 +516,11 @@ export default function RussianTest() {
     setSelectedOption(answerIndex)
     const questionId = allQuestions[currentQuestionIndex].id
     setAnswers((prev) => ({ ...prev, [questionId]: answerIndex }))
+
+    // Убираем фокус с активного элемента
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur()
+    }
 
     // Автоматический переход к следующему вопросу
     setTimeout(() => {
@@ -483,12 +538,60 @@ export default function RussianTest() {
       setSelectedOption(null)
     }, 500)
   }
+  const playAudio = (speed = 1.0) => {
+    if (audioRef.current) {
+      audioRef.current.playbackRate = speed
+      audioRef.current.play()
+    }
+  }
 
+  const handleSelectWord = (word: string) => {
+    setSelectedWords([...selectedWords, word])
+    setWordBank(wordBank.filter((w) => w !== word))
+  }
+
+  const handleDeselectWord = (word: string, index: number) => {
+    const newSelectedWords = [...selectedWords]
+    newSelectedWords.splice(index, 1)
+    setSelectedWords(newSelectedWords)
+    setWordBank([word, ...wordBank]) // Возвращаем слово в начало банка
+  }
+
+  const handleCheckListeningAnswer = () => {
+    const userAnswer = selectedWords.join(" ")
+    const correctAnswer = allQuestions[currentQuestionIndex].correctAnswer as string
+    const isCorrect = userAnswer === correctAnswer
+
+    setIsAnswerCorrect(isCorrect)
+    setIsAnswerChecked(true)
+
+    // Сохраняем ответ (можно сохранять и сам ответ, и флаг корректности)
+    const questionId = allQuestions[currentQuestionIndex].id
+    setAnswers((prev) => ({ ...prev, [questionId]: isCorrect ? 1 : 0 })) // 1 - верно, 0 - неверно
+
+    // Переход к следующему вопросу после небольшой задержки
+    setTimeout(() => {
+      if (currentQuestion < testSections[currentSection].questions.length - 1) {
+        setCurrentQuestion((prev) => prev + 1)
+      } else if (currentSection < testSections.length - 1) {
+        setCurrentSection((prev) => prev + 1)
+        setCurrentQuestion(0)
+      } else {
+        setIsCompleted(true)
+        setTimeout(() => setShowPhoneRequest(true), 500)
+      }
+    }, 1500) // Увеличим задержку, чтобы пользователь увидел результат
+  }
 
   const calculateResults = () => {
     const sectionResults = testSections.map((section) => {
       const sectionQuestions = section.questions
-      const correctAnswers = sectionQuestions.filter((q) => answers[q.id] === q.correctAnswer).length
+      const correctAnswers = sectionQuestions.filter((q) => {
+        if (q.type === 'listening') {
+          return answers[q.id] === 1; // 1 означает правильный ответ
+        }
+        return answers[q.id] === q.correctAnswer
+      }).length
       const percentage = Math.round((correctAnswers / sectionQuestions.length) * 100)
       return {
         title: section.title,
@@ -745,42 +848,22 @@ export default function RussianTest() {
   return (
       <div className="min-h-screen bg-white">
         {/* Прогресс-бар */}
-        <div className="border-b border-gray-100 bg-white sticky top-0 z-10">
-          <div className="w-full max-w-4xl lg:max-w-none mx-auto px-4 lg:px-8 xl:px-16 py-2">
-            <div className="flex items-center justify-between mb-2">
-              {testSections.map((section, index) => (
-                  <div key={section.id} className="flex items-center">
-                    <div
-                        className={`flex flex-col items-center gap-1 ${
-                            index < currentSection
-                                ? "text-blue-600"
-                                : index === currentSection
-                                    ? "text-blue-600"
-                                    : "text-gray-400"
-                        }`}
-                    >
-                      <div
-                          className={`w-8 h-8 rounded-full flex items-center justify-center shadow-md transition-all ${
-                              index < currentSection
-                                  ? "bg-blue-600 text-white"
-                                  : index === currentSection
-                                      ? "bg-blue-100 text-blue-600 ring-4 ring-blue-50"
-                                      : "bg-gray-100 text-gray-400"
-                          }`}
-                      >
-                        <span className="text-sm font-bold">{index + 1}</span>
-                      </div>
-                      <span className="font-medium text-xs sm:text-sm">{section.title}</span>
-                    </div>
-                    {/* Removed divider line between sections */}
-                  </div>
-              ))}
-            </div>
-            <div className="progress-bar">
-              <div className="progress-bar-fill" style={{ width: `${(currentQuestionIndex / totalQuestions) * 100}%` }}>
-                <div className="progress-bar-glow"></div>
+        <div
+            className={`border-b border-gray-100 bg-white sticky top-0 z-10 transform transition-transform duration-300 ${
+                isProgressBarVisible ? 'translate-y-0' : '-translate-y-full'
+            }`}
+        >
+          <div className="w-full max-w-4xl lg:max-w-none mx-auto px-4 lg:px-8 xl:px-16 py-4 flex flex-col items-center">
+            {/* Контейнер для "эликсира" */}
+            <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden shadow-inner relative">
+              <div
+                  className="h-full rounded-full transition-all duration-300 ease-out bg-gradient-to-r from-cyan-400 to-blue-500 shadow-lg shadow-blue-500/50"
+                  style={{width: `${(currentQuestionIndex / totalQuestions) * 100}%`}}
+              >
               </div>
             </div>
+
+            {/* Счетчик вопросов */}
             <p className="text-sm text-gray-500 mt-2">
               Сұрақ {currentQuestionIndex + 1} / {totalQuestions}
             </p>
@@ -800,7 +883,7 @@ export default function RussianTest() {
               {currentQuestionData.media && (
                   <div className="flex justify-center">
                     {currentQuestionData.media.type === "video" && (
-                        <CustomVideoPlayer src={currentQuestionData.media.url} />
+                        <CustomVideoPlayer src={currentQuestionData.media.url}/>
                     )}
 
                     {currentQuestionData.media.type === "image" && (
@@ -812,44 +895,139 @@ export default function RussianTest() {
 
 
                     )}
-                    {currentQuestionData.media.type === "audio" && (
-                        <div className="w-full max-w-lg p-8 bg-gray-100 rounded-lg flex items-center justify-center">
+                    {currentQuestionData.media.type === "audio" && currentQuestionData.type !== "listening" && (
+                        <div className="w-full max-w-lg p-4 bg-gray-100 rounded-lg flex items-center justify-center">
                           <div className="text-center space-y-2">
-                            <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto">
-                              <Play className="w-6 h-6 text-white" />
-                            </div>
-                            <p className="text-gray-600">Тыңдау үшін басыңыз</p>
+                            <Button
+                                onClick={() => playAudio(1.0)}
+                                size="lg"
+                                className="p-4 h-20 w-20 rounded-2xl bg-blue-600 hover:bg-blue-700"
+                            >
+                              <PlayCircle className="h-12 w-12 text-white"/>
+                            </Button>
+                            <p className="text-sm text-gray-600">Тыңдау үшін басыңыз</p>
+                            <audio ref={audioRef} src={currentQuestionData.media.url} preload="auto"/>
                           </div>
                         </div>
                     )}
                   </div>
               )}
             </div>
+            {/* ... ваш код до вариантов ответов */}
 
             {/* Варианты ответов */}
-            <div className="grid gap-4 md:grid-cols-2 max-w-3xl mx-auto">
-              {currentQuestionData.options.map((option, index) => (
-                  <Card
-                      key={index}
-                      className={`option-card cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105 border-2 hover:border-blue-300 ${
-                          selectedOption === index ? "bg-blue-600 text-white transform scale-98" : ""
-                      }`}
-                      onClick={() => handleAnswer(index)}
-                  >
-                    <CardContent className="p-6 lg:p-8">
-                      <div className="flex items-center gap-4">
-                        <div
-                            className={`option-letter w-8 h-8 rounded-full flex items-center justify-center text-blue-600 font-semibold ${
-                                selectedOption === index ? "bg-white text-blue-600" : "bg-blue-100"
-                            }`}
-                        >
-                          {String.fromCharCode(65 + index)}
+            {/* Варианты ответов */}
+            <div className="max-w-3xl mx-auto">
+              {currentQuestionData.type === "listening" || currentQuestionData.type === "translation_construct" ? (
+                  // >>>>> ОБЩИЙ БЛОК ДЛЯ СБОРКИ ПРЕДЛОЖЕНИЙ <<<<<
+                  <div className="space-y-6">
+
+                    {/* Отображаем кнопки аудио ТОЛЬКО для типа "listening" */}
+                    {currentQuestionData.type === "listening" && (
+                        <div className="flex justify-center items-center gap-4">
+                          <Button
+                              onClick={() => playAudio(1.0)}
+                              size="lg"
+                              className="p-4 h-20 w-20 rounded-2xl bg-sky-500 hover:bg-sky-600 shadow-lg transition-transform hover:scale-105 active:scale-95"
+                          >
+                            <Volume2 className="h-10 w-10 text-white" strokeWidth={2.5}/>
+                          </Button>
+                          <Button
+                              onClick={() => playAudio(0.7)}
+                              size="lg"
+                              className="p-4 h-16 w-16 rounded-2xl bg-sky-400 hover:bg-sky-500 shadow-md transition-transform hover:scale-105 active:scale-95"
+                          >
+                            <img src="https://em-content.zobj.net/source/apple/354/turtle_1f422.png" alt="slow" className="h-8 w-8"/>
+                          </Button>
+                          <audio ref={audioRef} src={currentQuestionData.media?.url} preload="auto" />
                         </div>
-                        <p className="text-lg lg:text-xl flex-1">{option}</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-              ))}
+                    )}
+
+                    <Card className="min-h-[80px] border-2 border-dashed">
+                      <CardContent className="p-4 flex flex-wrap gap-2 items-center">
+                        {selectedWords.map((word, index) => (
+                            <Button
+                                key={`${word}-${index}`}
+                                variant="secondary"
+                                className="text-lg px-4 py-2 cursor-pointer"
+                                onClick={() => handleDeselectWord(word, index)}
+                            >
+                              {word}
+                            </Button>
+                        ))}
+                      </CardContent>
+                    </Card>
+
+                    <div className="flex flex-wrap gap-2 justify-center">
+                      {wordBank.map((word, index) => (
+                          <Button
+                              key={`${word}-${index}`}
+                              variant="outline"
+                              className="text-lg px-4 py-2"
+                              onClick={() => handleSelectWord(word)}
+                          >
+                            {word}
+                          </Button>
+                      ))}
+                    </div>
+
+                    <div className="pt-4">
+                      <Button
+                          onClick={handleCheckListeningAnswer}
+                          disabled={selectedWords.length === 0 || isAnswerChecked}
+                          className={`w-full text-lg py-3 transition-colors duration-300 ${
+                              isAnswerChecked
+                                  ? isAnswerCorrect
+                                      ? "bg-green-600 hover:bg-green-700"
+                                      : "bg-red-600 hover:bg-red-700"
+                                  : "bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                          }`}
+                      >
+                        {isAnswerChecked ? (
+                            isAnswerCorrect ? (
+                                <span className="flex items-center justify-center gap-2">
+                <Check className="h-5 w-5" />
+                Правильно!
+              </span>
+                            ) : (
+                                <span className="flex items-center justify-center gap-2">
+                <X className="h-5 w-5" />
+                Неверно!
+              </span>
+                            )
+                        ) : (
+                            "Проверить"
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+              ) : (
+                  // СТАРЫЙ БЛОК ДЛЯ ОБЫЧНЫХ ВОПРОСОВ (с выбором вариантов)
+                  <div className="grid gap-4 md:grid-cols-2">
+                    {currentQuestionData.options.map((option, index) => (
+                        <Card
+                            key={index}
+                            className={`option-card cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105 border-2 hover:border-blue-300 ${
+                                selectedOption === index ? "bg-blue-600 text-white transform scale-98" : ""
+                            }`}
+                            onClick={() => handleAnswer(index)}
+                        >
+                          <CardContent className="p-6 lg:p-8">
+                            <div className="flex items-center gap-4">
+                              <div
+                                  className={`option-letter w-8 h-8 rounded-full flex items-center justify-center text-blue-600 font-semibold ${
+                                      selectedOption === index ? "bg-white text-blue-600" : "bg-blue-100"
+                                  }`}
+                              >
+                                {String.fromCharCode(65 + index)}
+                              </div>
+                              <p className="text-lg lg:text-xl flex-1">{option}</p>
+                            </div>
+                          </CardContent>
+                        </Card>
+                    ))}
+                  </div>
+              )}
             </div>
           </div>
         </div>
