@@ -134,6 +134,7 @@ interface TestSection {
 
 const testSections: TestSection[] = [
   {
+
     id: "video_motivation",
     title: "Видео сұрақтар",
     icon: Play,
@@ -869,7 +870,7 @@ export default function RussianTest() {
                       Сіздің нәтижелеріңіз өңделді. Бонусты алу үшін төмендегі батырманы басыңыз.
                     </p>
                     <Button
-                        onClick={() => window.open("https://t.me/akcentakademy", "_blank")}
+                        onClick={() => window.open("https://akcentacademy.kz/prob-platform", "_blank")}
                         className="w-full bg-blue-600 hover:bg-blue-700 text-lg py-3"
                     >
                       <Star className="w-5 h-5 mr-2" />
